@@ -1,4 +1,4 @@
-import { Server as HTTPServer, IncomingMessage } from "http";
+import { Server as HTTPServer, IncomingMessage, ServerResponse } from "http";
 import { RawData, RawData as WSRawData, WebSocket, WebSocketServer } from "ws";
 import { Buffer } from "node:buffer";
 import { Socket, createConnection } from "node:net";
@@ -58,6 +58,10 @@ export class DiServer extends EventEmitter {
         const server = new HTTPServer();
         const wss = new WebSocketServer({ server });
         wss.on("connection", this.#onconnection.bind(this))
+        server.on("request", (req: IncomingMessage, res: ServerResponse) => {
+            res.writeHead(200, "OK", { "content-type": "text/plain" });
+            res.end("OK")
+        })
         server.listen(port, host);
         wss.on("listening", () => {
             let address = wss.address();
