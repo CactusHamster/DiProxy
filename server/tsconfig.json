@@ -1,0 +1,17 @@
+{
+    "include": ["src"],
+    "exclude": ["node_modules"],
+    "compilerOptions": {
+        "target": "ESNext",
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        "outDir": "dist",
+        "removeComments": true,
+        "moduleResolution": "node",
+        "module": "nodenext",
+        "allowSyntheticDefaultImports": true,
+        "skipLibCheck": false,
+        "resolveJsonModule": true
+    }
+}
