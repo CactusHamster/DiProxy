@@ -53,7 +53,8 @@ export class DiServer extends EventEmitter {
         ws.on("close", () => econnection.end());
         econnection.on("close", () => ws.close());
     }
-    listen (port: number = 24785, host: string = "0.0.0.0"): WebSocketServer {
+    listen (port: number, host: string = "0.0.0.0"): WebSocketServer {
+        port = +(port ?? process.env.PORT ?? 80);
         const server = new HTTPServer();
         const wss = new WebSocketServer({ server });
         wss.on("connection", this.#onconnection.bind(this))

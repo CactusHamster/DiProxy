@@ -97,8 +97,6 @@ export class DiClient extends EventEmitter {
     };
     #onerror (e: Error) { throw new Error(`There was an error starting local server.\n` + e); exit(1); };
     listen (port: number = 8080, host: string = "127.0.0.1"): Server {
-        if (port == undefined) port = 80;
-        if (host == undefined) host = "127.0.0.1";
         const server = new Server();
         server.listen(port, host);
         server.on("listening", () => this.#onlistening(server));
@@ -111,7 +109,7 @@ export class DiClient extends EventEmitter {
         super({"captureRejections": true});
         if (remoteAddress.indexOf("://") == -1) remoteAddress = "ws://" + remoteAddress;
         this.remoteAddress = new URL(remoteAddress);
-        if (!this.remoteAddress.port) this.remoteAddress.port = "24785";
+        if (!this.remoteAddress.port) this.remoteAddress.port = process.env.PORT ?? "80";
 
     };
 }
